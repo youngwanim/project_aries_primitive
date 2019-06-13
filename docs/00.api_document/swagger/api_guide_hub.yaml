@@ -1,0 +1,184 @@
+swagger: '2.0'
+info:
+  title: Aries Open API - Hub
+  description: >-
+    This document is for subscribing the functionalities and features of Aries
+    open API
+  version: '1.0'
+host: '139.196.123.42:8080'
+schemes:
+  - http
+basePath: /
+produces:
+  - application/json
+paths:
+  /purchases/admin/orders/:
+    get:
+      tags:
+        - Purchase
+      summary: Get order list with specific time
+      description: It will return two lists
+      parameters:
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/delivery_schedule'
+        - $ref: '#/parameters/delivery_date'
+      responses:
+        '200':
+          description: Order read success
+          schema:
+            $ref: '#/definitions/order_list_response'
+  '/purchases/admin/order/{order_id}/detail/':
+    get:
+      tags:
+        - Purchase
+      summary: Get order detail information
+      description: Specific order information
+      parameters:
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/order_id'
+      responses:
+        '200':
+          description: Order read success
+  '/purchases/admin/order/{order_id}/preparing/':
+    put:
+      tags:
+        - Purchase
+      summary: Order status will be changed
+      description: Order status change api
+      parameters:
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/order_id'
+        - name: operation status
+          in: body
+          schema:
+            $ref: '#/definitions/operation_status'
+      responses:
+        '200':
+          description: OK
+  /purchases/admin/search/orders/:
+    get:
+      tags:
+        - Purchase
+      summary: Search orders
+      description: Get specified order list
+      parameters:
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/query_order_id'
+        - $ref: '#/parameters/query_name'
+        - $ref: '#/parameters/query_mdn'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/limit'
+      responses:
+        '200':
+          description: Order read success
+          schema:
+            $ref: '#/definitions/order_list_response'
+definitions:
+  order_list_response:
+    type: object
+    properties:
+      orders:
+        type: array
+        items:
+          $ref: '#/definitions/orders'
+        description: Json array contains order
+  orders:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 28
+      order_start_date:
+        type: string
+        example: 2017-06-21T07:42:59.041Z
+      order_id:
+        type: string
+        example: S20170404A6F77BC8
+      order_status:
+        type: integer
+        example: 0
+      order_status_history:
+        type: array
+        example: []
+      operation_status:
+        type: integer
+        example: 1
+      operation_status_history:
+        type: array
+        example: []
+      shipping_status:
+        type: integer
+        example: 0
+      shipping_rider_id:
+        type: string
+        example: OXZ0434241
+      shipping_rider_telephone:
+        type: string
+        example: 01021290054
+  operation_status:
+    type: object
+    properties:
+      operation_status:
+        type: integer
+        example: 1
+parameters:
+  access_token:
+    name: Authorization
+    in: header
+    description: bearer access_token
+    required: true
+    type: string
+  page:
+    name: page
+    in: query
+    description: The page we want to see
+    required: true
+    type: integer
+  limit:
+    name: The limitation count
+    in: query
+    description: The limitation count
+    required: true
+    type: integer
+  query_order_id:
+    name: query_orderid
+    in: query
+    description: The query order id
+    required: true
+    type: string
+  query_name:
+    name: query_name
+    in: query
+    description: The user name
+    required: true
+    type: string
+  query_mdn:
+    name: query_mdn
+    in: query
+    description: The user mdn
+    required: true
+    type: string
+  time_table:
+    name: time_table
+    in: path
+    description: order data with time table
+    required: true
+    type: string
+  delivery_schedule:
+    name: delivery_schedule
+    in: query
+    description: Delivery schedule
+    required: true
+    type: string
+  delivery_date:
+    name: delivery_date
+    in: query
+    description: Delivery date
+    required: true
+    type: string
+  order_id:
+    name: order_id
+    in: path
+    description: Unique order id
+    required: true
+    type: string

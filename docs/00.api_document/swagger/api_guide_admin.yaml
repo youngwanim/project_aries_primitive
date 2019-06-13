@@ -1,0 +1,1489 @@
+swagger: '2.0'
+info:
+  title: Aries Open API - Admin/Account manage
+  description: >-
+    This document is for subscribing the functionalities and features of Aries
+    open API
+  version: '1.0'
+host: '139.196.123.42:8080'
+schemes:
+  - http
+basePath: /
+produces:
+  - application/json
+paths:
+  /products/admin/restaurants:
+    get:
+      tags:
+        - Restaurants
+      summary: Read
+      description: You'll get a restaurants list
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/limit'
+      responses:
+        '200':
+          description: Restaurant list
+          schema:
+            $ref: '#/definitions/restaurant_list_response'
+    post:
+      tags:
+        - Restaurants
+      summary: Create
+      description: Please call me without id value
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - name: restaurant
+          in: body
+          description: Check restaurant model
+          schema:
+            $ref: '#/definitions/restaurants'
+      responses:
+        '200':
+          description: success
+          schema:
+            $ref: '#/definitions/success_response'
+  '/products/admin/restaurant/{restaurant_id}':
+    get:
+      tags:
+        - Restaurants
+      summary: Read
+      description: Get restaurant info
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/restaurant_id'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/restaurants'
+    put:
+      tags:
+        - Restaurants
+      summary: Update
+      description: Update restaurant information
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/restaurant_id'
+        - name: restaurant
+          in: body
+          description: Restaurant model
+          schema:
+            $ref: '#/definitions/restaurants'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/success_response'
+    delete:
+      tags:
+        - Restaurants
+      summary: Delete
+      description: Delete restaurant information
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/restaurant_id'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/success_response'
+  /products/admin/restaurants/brand:
+    get:
+      tags:
+        - RestaurantBrand
+      summary: Read
+      description: Read restaurant list
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/limit'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/brand_list_response'
+    post:
+      tags:
+        - RestaurantBrand
+      summary: Create
+      description: Create brand information
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - name: brand
+          in: body
+          description: brand info model
+          schema:
+            $ref: '#/definitions/brand_post_request'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/success_response'
+  '/products/admin/restaurant/brand/{restaurant_id}':
+    get:
+      tags:
+        - RestaurantBrand
+      summary: Read
+      description: Read restaurant brand info
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/restaurant_id'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/brand_get_response'
+    put:
+      tags:
+        - RestaurantBrand
+      summary: Update
+      description: Update brand info
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/restaurant_id'
+        - name: brand_info
+          in: body
+          description: Brand information
+          schema:
+            $ref: '#/definitions/menu_post_request'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/success_response'
+    delete:
+      tags:
+        - RestaurantBrand
+      summary: Delete
+      description: Delete brand info
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/restaurant_id'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/success_response'
+  /products/admin/kitchens:
+    get:
+      tags:
+        - Kitchens
+      summary: Read
+      description: You'll get a kitchen list
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/limit'
+      responses:
+        '200':
+          description: Kitchen list
+          schema:
+            $ref: '#/definitions/kitchen_list_response'
+    post:
+      tags:
+        - Kitchens
+      summary: Create
+      description: Please call me without id value
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - name: kitchen
+          in: body
+          description: Check kitchen model
+          schema:
+            $ref: '#/definitions/kitchen'
+      responses:
+        '200':
+          description: success
+          schema:
+            $ref: '#/definitions/success_response'
+  '/products/admin/kitchen/{kitchen_id}':
+    get:
+      tags:
+        - Kitchens
+      summary: Read
+      description: Get kitchen info
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/kitchen_id'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/kitchen'
+    put:
+      tags:
+        - Kitchens
+      summary: Update
+      description: Update kitchen information
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/kitchen_id'
+        - name: kitchen
+          in: body
+          description: kitchen model
+          schema:
+            $ref: '#/definitions/kitchen'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/success_response'
+    delete:
+      tags:
+        - Kitchens
+      summary: Delete
+      description: Delete kitchen information
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/kitchen_id'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/success_response'
+  /products/admin/hubs:
+    get:
+      tags:
+        - Hubs
+      summary: Read
+      description: You'll get a hub list
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/limit'
+      responses:
+        '200':
+          description: Hub list
+          schema:
+            $ref: '#/definitions/hub_list_response'
+    post:
+      tags:
+        - Hubs
+      summary: Create
+      description: Please call me without id value
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - name: kitchen
+          in: body
+          description: Check hub model
+          schema:
+            $ref: '#/definitions/hub'
+      responses:
+        '200':
+          description: success
+          schema:
+            $ref: '#/definitions/success_response'
+  '/products/admin/hub/{hub_id}':
+    get:
+      tags:
+        - Hubs
+      summary: Read
+      description: Get hub info
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/hub_id'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/hub'
+    put:
+      tags:
+        - Hubs
+      summary: Update
+      description: Update hub information
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/hub_id'
+        - name: hub
+          in: body
+          description: hub model
+          schema:
+            $ref: '#/definitions/hub'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/success_response'
+    delete:
+      tags:
+        - Hubs
+      summary: Delete
+      description: Delete hub information
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/hub_id'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/success_response'
+  /users/admin/customers:
+    get:
+      tags:
+        - Customers
+      summary: Read
+      description: You'll get a customer list
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/limit'
+      responses:
+        '200':
+          description: customer list
+          schema:
+            $ref: '#/definitions/user_list_response'
+    post:
+      tags:
+        - Customers
+      summary: Create
+      description: Please call me without id value
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - name: customer
+          in: body
+          description: Check customer model
+          schema:
+            $ref: '#/definitions/user'
+      responses:
+        '200':
+          description: success
+          schema:
+            $ref: '#/definitions/success_response'
+  '/users/admin/customer/{user_id}':
+    get:
+      tags:
+        - Customers
+      summary: Read
+      description: Get customer info
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/user_id'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/user'
+    put:
+      tags:
+        - Customers
+      summary: Update
+      description: Update customer information
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/user_id'
+        - name: customer
+          in: body
+          description: customer model
+          schema:
+            $ref: '#/definitions/user'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/success_response'
+    delete:
+      tags:
+        - Customers
+      summary: Delete
+      description: Delete customer information
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/user_id'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/success_response'
+  /users/admin/customers/search:
+    get:
+      tags:
+        - Customers
+      summary: Search
+      description: Find some customers
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/key'
+        - $ref: '#/parameters/value'
+      responses:
+        '200':
+          description: OK
+  /purchases/admin/coupons:
+    get:
+      tags:
+        - Coupons
+      summary: Read
+      description: You'll get a coupon list
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/limit'
+      responses:
+        '200':
+          description: coupon list
+          schema:
+            $ref: '#/definitions/coupon_list_response'
+    post:
+      tags:
+        - Coupons
+      summary: Create
+      description: Please call me without id value
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - name: coupon
+          in: body
+          description: Check coupon model
+          schema:
+            $ref: '#/definitions/coupon_request'
+      responses:
+        '200':
+          description: success
+          schema:
+            $ref: '#/definitions/success_response'
+  '/purchases/admin/coupon/{coupon_id}':
+    get:
+      tags:
+        - Coupons
+      summary: Read
+      description: Get coupon info
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/coupon_id'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/coupon_request'
+    put:
+      tags:
+        - Coupons
+      summary: Update
+      description: Update coupon information
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/coupon_id'
+        - name: coupon
+          in: body
+          description: coupon model
+          schema:
+            $ref: '#/definitions/coupon_request'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/success_response'
+    delete:
+      tags:
+        - Coupons
+      summary: Delete
+      description: Delete coupon information
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/coupon_id'
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/success_response'
+  /platform/operators:
+    post:
+      tags:
+        - Admin Account
+      summary: Create
+      description: Create admin account
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - name: account
+          in: body
+          description: Make new admin account. Scope is operator or admin
+          schema:
+            $ref: '#/definitions/account'
+      responses:
+        '200':
+          description: OK
+    get:
+      tags:
+        - Admin Account
+      summary: Read
+      description: Read account list
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/limit'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/account_list_response'
+  '/platform/operator/{operator_id}':
+    get:
+      tags:
+        - Admin Account
+      summary: Read
+      description: Read operator detail
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/operator_id'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/account_response'
+    put:
+      tags:
+        - Admin Account
+      summary: Update
+      description: Update operator account data
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/operator_id'
+        - name: account
+          in: body
+          description: Account information
+          schema:
+            $ref: '#/definitions/account'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/success_response'
+    delete:
+      tags:
+        - Admin Account
+      summary: Delete
+      description: Delete operator account data
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/operator_id'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/success_response'
+  /products/admin/menus:
+    post:
+      tags:
+        - Menus
+      summary: Create
+      description: create menu
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - name: menu
+          in: body
+          description: Menu model. except id.
+          schema:
+            $ref: '#/definitions/menu_post_request'
+      responses:
+        '200':
+          description: OK
+    get:
+      tags:
+        - Menus
+      summary: Read
+      description: Read a menu list
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/menu_type'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/menu_list_response'
+  /products/admin/menus/list:
+    get:
+      tags:
+        - Menus
+      summary: Read
+      description: Read all menu list
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/limit'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/menu_only_list_response'
+  /products/admin/menus/search:
+    get:
+      tags:
+        - Menus
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/query'
+      summary: Read
+      description: Read menu list
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/menu_only_list_response'
+  '/products/admin/menu/{menu_id}':
+    get:
+      tags:
+        - Menus
+      summary: Read
+      description: Read menu detail
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/menu_id'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/menu_detail_response'
+    put:
+      tags:
+        - Menus
+      summary: Update
+      description: Update menu detail
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/menu_id'
+        - name: menu
+          in: body
+          description: Update menu
+          schema:
+            $ref: '#/definitions/menu_post_request'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/success_response'
+    delete:
+      tags:
+        - Menus
+      summary: Delete
+      description: Delete menu
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/menu_id'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/success_response'
+definitions:
+  success_response:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: success
+  restaurant_list_response:
+    type: object
+    properties:
+      total_count:
+        type: integer
+        example: 10
+        description: Total restaurant count
+      restaurants:
+        type: array
+        items:
+          $ref: '#/definitions/restaurants'
+        description: Json array contains restaurant object
+  restaurants:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 28
+      name:
+        type: string
+        example: Via stelle
+      email:
+        type: string
+        example: admin@viastelle.com
+      account:
+        type: string
+        example: admin
+      password:
+        type: string
+        example: administrator
+      bank_name:
+        type: string
+        example: woori
+      bank_account:
+        type: string
+        example: 125215-213124
+      introduce_image:
+        type: string
+        example: viastelle.png
+      chef:
+        type: string
+        example: Ji-ae Choi
+      award_info:
+        type: array
+        items:
+          - $ref: '#/definitions/restaurant_award_info'
+      address:
+        type: string
+        example: Korea
+      longitude:
+        type: number
+        example: 3.1
+      latitude:
+        type: number
+        example: 1.324
+      country:
+        type: string
+        example: Korea
+      contract_complete:
+        type: integer
+        example: 0
+      agreement_terms:
+        type: string
+        example: terms
+      privacy_policy:
+        type: string
+        example: policy
+      menu_count:
+        type: integer
+        example: 3
+  restaurant_award_info:
+    type: object
+    properties:
+      type:
+        type: integer
+        example: 4
+      grade:
+        type: integer
+        example: 0
+      name:
+        type: string
+        example: Michellin award
+  kitchen:
+    type: object
+    properties:
+      code:
+        type: string
+        example: CENTRAL_001
+      name:
+        type: string
+        example: Shanghai kitchen
+      type:
+        type: integer
+        description: '0 is rnd kitchen, 1 is central kitchen'
+        example: 0
+      location:
+        type: string
+        example: Seoul
+      address:
+        type: string
+        example: Jong-ro gu 11st
+      longitude:
+        type: number
+        example: 3.12425
+      latitude:
+        type: number
+        example: 2.432532
+      manager_name:
+        type: string
+        example: General lee
+      telephone:
+        type: string
+        example: 5734303
+  kitchen_list_response:
+    type: object
+    properties:
+      total_count:
+        type: integer
+        example: 20
+      rnd_count:
+        type: integer
+        example: 10
+      central_count:
+        type: integer
+        example: 10
+      rnd_kitchens:
+        type: array
+        items:
+          $ref: '#/definitions/kitchen'
+      central_kitchens:
+        type: array
+        items:
+          $ref: '#/definitions/kitchen'
+  hub:
+    type: object
+    properties:
+      code:
+        type: string
+        example: S001
+      name:
+        type: string
+        example: SHANGHAI_HUB_01
+      location:
+        type: string
+        example: Shanghai
+      location_type:
+        type: integer
+        description: '0 is shanghai, 1 is beijing'
+        example: 0
+      longitude:
+        type: number
+        example: 1.2042354
+      latitude:
+        type: number
+        example: 0.2425326
+      manager_name:
+        type: string
+        example: Park ji sung
+      telephone:
+        type: string
+        example: 4893939
+  hub_list_response:
+    type: object
+    properties:
+      total_count:
+        type: integer
+        example: 7
+      hubs:
+        type: array
+        items:
+          $ref: '#/definitions/hub'
+  user:
+    type: object
+    properties:
+      open_id:
+        type: string
+        example: 4DE2EF9C8FP...
+      gender:
+        type: string
+        example: M
+      name:
+        type: string
+        example: Big choi
+      email:
+        type: string
+        example: yagaller@seyeon.net
+      default_address_id:
+        type: integer
+        example: 0
+      default_address:
+        type: string
+        example: Jing-an-gu 11st 11-5
+      default_hub_id:
+        type: integer
+        example: 1
+      parent_type:
+        type: integer
+        example: 0
+      mdn:
+        type: string
+        example: 01021290054
+      mdn_verification:
+        type: boolean
+        example: true
+      push_agreement:
+        type: string
+        example: 'Y'
+      locale:
+        type: string
+        example: en
+      profile_image:
+        type: string
+        example: image_me.png
+      access_token:
+        type: string
+        example: EO49FK2C9f28C...
+      connection_count:
+        type: integer
+        example: 2
+      connection_account:
+        type: string
+        example: []
+      has_upcoming_order:
+        type: boolean
+        example: true
+  user_list_response:
+    type: object
+    properties:
+      total_count:
+        type: integer
+        example: 4832951
+      accounts:
+        type: array
+        items:
+          $ref: '#/definitions/user'
+  coupon:
+    type: object
+    properties:
+      name:
+        type: string
+        example: Welcome coupon
+      description:
+        type: array
+        example:
+          - This coupon is
+          - example
+          - Complete
+      image:
+        type: string
+        example: coupon001.png
+      status:
+        type: integer
+        description: 0-available coupon 1-used coupon 2-expired coupon
+        example: 0
+      coupon_type:
+        type: integer
+        description: 0-Static Cash 1-Static percentage 2-Free meal 3-one plus one
+        example: 0
+      cash_type:
+        type: integer
+        description: 0-RMB 1-USD
+        example: 0
+      cash_discount:
+        type: number
+        example: 10
+      cash_minimum:
+        type: number
+        example: 100
+      target_type:
+        type: integer
+        description: >-
+          0-All foods 1-Main dish 2-Set menu 3-Side dish 4-Desert 5-Drink
+          6-Special menu 7-Restaurant 10-All price
+        example: 0
+      target_detail:
+        type: integer
+        description: 'When target_type is 6 or 7, then menu or restaurant id'
+        example: 10
+      delivery_detail:
+        type: integer
+        description: 0-Viastelle delivery 1-Dada delivery
+        example: 0
+      period_type:
+        type: integer
+        description: 0-Eternal period 1-Static period 2-Dynamic period
+        example: 0
+      period_day:
+        type: integer
+        description: day count
+        example: 7
+      period_start_date:
+        type: string
+        example: 20170605
+      period_end_date:
+        type: string
+        example: 20170612
+  coupon_list_response:
+    type: object
+    properties:
+      total_count:
+        type: integer
+        example: 57
+      coupons_en:
+        items:
+          $ref: '#/definitions/coupon'
+      coupons_cn:
+        items:
+          $ref: '#/definitions/coupon'
+  coupon_request:
+    type: object
+    properties:
+      coupon_en:
+        $ref: '#/definitions/coupon'
+      coupon_cn:
+        $ref: '#/definitions/coupon'
+  account:
+    type: object
+    properties:
+      account:
+        type: string
+        example: rnasterpeace
+      password:
+        type: string
+        example: 1q2w3e
+      scope:
+        type: string
+        example: operator
+        description: operator/admin
+      name:
+        type: string
+        example: jaewoo kim
+      employee_id:
+        type: string
+        example: 30001
+      employee_telephone:
+        type: string
+        example: 01021290054
+      created_date:
+        type: string
+        example: 20170704
+        description: 'In post, this value doesn''t need'
+  account_response:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: success
+      accounts:
+        $ref: '#/definitions/account'
+  account_list_response:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: success
+      accounts:
+        type: array
+        items:
+          $ref: '#/definitions/account'
+  menu_description:
+    type: array
+    items:
+      type: string
+      example: The restaurant brunch is based on the city
+  menu_package:
+    type: object
+    properties:
+      name:
+        type: string
+        example: Pork meat
+      quantity:
+        type: integer
+        example: 10
+  menu_prep_tips:
+    type: object
+    properties:
+      type:
+        type: integer
+        example: 0
+      title:
+        type: string
+        example: MICROWAVE OVEN (700W)
+      sub_title:
+        type: string
+        example: Tear corner of the plastic package before heating
+      description:
+        type: array
+        example: Grain Porridge - 1min 30sec
+  menu_ingredients:
+    type: object
+    properties:
+      name:
+        type: string
+        example: Potato
+      quantity:
+        type: string
+        example: 200g
+  menu_nutrition:
+    type: object
+    properties:
+      name:
+        type: string
+        example: Calories
+      quantity:
+        type: string
+        example: 670Kcal
+  menu_set_info:
+    type: array
+    items:
+      type: integer
+      example: 1
+  menu_guide_info:
+    type: array
+    items:
+      type: string
+      example: 'COOL DRINK, ITS, VERY COOL'
+  menu_detail:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 14
+      name:
+        type: string
+        example: Pork cutlet
+      cooking_materials:
+        type: string
+        example: 'Pork, Gogi, Spicy'
+      type:
+        type: integer
+        example: 1
+      price:
+        type: number
+        example: 10
+      price_discount:
+        type: number
+        example: 5
+      image_main:
+        type: string
+        example: drink_guide_main.png
+      image_detail:
+        type: string
+        example: food_detail.png
+      image_sub:
+        type: string
+        example: food_sub.png
+      image_thumbnail:
+        type: string
+        example: food_thumbnail.png
+      description:
+        $ref: '#/definitions/menu_description'
+      image_package:
+        type: string
+        example: package_image.png
+      package_list:
+        $ref: '#/definitions/menu_package'
+      prep_tips:
+        $ref: '#/definitions/menu_prep_tips'
+      prep_plating_thumbnail:
+        type: string
+        example: thumbnail.png
+      prep_plating_url:
+        type: string
+        example: plating.png
+      image_ingredients:
+        type: string
+        example: ingredients.png
+      ingredients:
+        $ref: '#/definitions/menu_ingredients'
+      nutrition:
+        $ref: '#/definitions/menu_nutrition'
+      set_info:
+        $ref: '#/definitions/menu_set_info'
+      guide_info:
+        $ref: '#/definitions/menu_guide_info'
+  menu_restaurant:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 4
+      name:
+        type: string
+        example: ViaStelle
+      menu_count:
+        type: integer
+        example: 3
+      menus_en:
+        items:
+          $ref: '#/definitions/menu_detail'
+      menus_cn:
+        items:
+          $ref: '#/definitions/menu_detail'
+  menu_list_response:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: success
+      total_count:
+        type: integer
+        example: 4
+      restaurants:
+        items:
+          $ref: '#/definitions/menu_restaurant'
+  menu_only_list_response:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: success
+      total_count:
+        type: integer
+        example: 14
+      menus_en:
+        items:
+          $ref: '#/definitions/menu_detail'
+      menus_cn:
+        items:
+          $ref: '#/definitions/menu_detail'
+  menu_detail_response:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: success
+      menu_en:
+        $ref: '#/definitions/menu_detail'
+      menu_cn:
+        $ref: '#/definitions/menu_detail'
+  menu_post_request:
+    type: object
+    properties:
+      menus_en:
+        $ref: '#/definitions/menu_detail'
+      menus_cn:
+        $ref: '#/definitions/menu_detail'
+  brand_award_content:
+    type: object
+    properties:
+      title:
+        type: string
+        example: AWARD
+      color:
+        type: string
+        example: '#aabbcc'
+      award_info:
+        items:
+          type: array
+          example: Recipient of one michelin star 2016 & 2017
+  brand_restaurant_content:
+    type: object
+    properties:
+      type:
+        type: string
+        example: image
+        description: image/text
+      align:
+        type: string
+        example: left
+        description: left/center/right
+      content:
+        type: string
+        example: 58mdpi-001.png
+  brand_interview_content:
+    type: object
+    properties:
+      background_color:
+        type: string
+        example: '#aabbcc'
+      content:
+        type: string
+        example: We want to create a place where people
+      content_below:
+        type: string
+        example: Frank McClelland Interview
+      interview_thumbnail:
+        type: string
+        example: interview_001.png
+      interview_media:
+        type: string
+        example: plating_001.mp4
+  brand_info_detail:
+    type: object
+    properties:
+      id:
+        type: string
+        example: 1
+      restaurant_logo:
+        type: string
+        example: 11.png
+      restaurant_region:
+        type: string
+        example: In Boston
+      chef_name:
+        type: string
+        example: FRANK MCCLELAND
+      chef_image:
+        type: string
+        example: detail_chef_image.png
+      award_image:
+        type: string
+        example: award_image.png
+      award_content:
+        $ref: '#/definitions/brand_award_content'
+      restaurant_content:
+        items:
+          $ref: '#/definitions/brand_restaurant_content'
+      interview_content:
+        $ref: '#/definitions/brand_interview_content'
+  brand_restaurant_detail:
+    type: object
+    properties:
+      id:
+        type: string
+        example: 4
+      name:
+        type: string
+        example: Lespalier
+      menu_count:
+        type: integer
+        example: 0
+      brand_info_en:
+        $ref: '#/definitions/brand_info_detail'
+      brand_info_cn:
+        $ref: '#/definitions/brand_info_detail'
+  brand_list_response:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: success
+      total_count:
+        type: integer
+        example: 4
+      registered_count:
+        type: integer
+        example: 4
+      restaurants:
+        items:
+          $ref: '#/definitions/brand_restaurant_detail'
+  brand_post_request:
+    type: object
+    properties:
+      brand_info_en:
+        $ref: '#/definitions/brand_info_detail'
+      brand_info_cn:
+        $ref: '#/definitions/brand_info_detail'
+  brand_get_response:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: success
+      brand_info_en:
+        $ref: '#/definitions/brand_info_detail'
+      brand_info_cn:
+        $ref: '#/definitions/brand_info_detail'
+parameters:
+  open_id:
+    name: open-id
+    in: header
+    description: An open-id
+    required: true
+    type: string
+  access_token:
+    name: Authorization
+    in: header
+    description: bearer access_token
+    required: true
+    type: string
+  page:
+    name: page
+    in: query
+    description: The page we want to see
+    required: true
+    type: integer
+  limit:
+    name: limit
+    in: query
+    description: The limitation count
+    required: true
+    type: integer
+  menu_type:
+    name: type
+    in: query
+    description: 0-set menu 1-main dish 2-side dish 3-dessert 4-drink 5-all 10-guide
+    type: integer
+  restaurant_id:
+    name: restaurant_id
+    in: path
+    description: restaurant id
+    required: true
+    type: string
+  kitchen_id:
+    name: kitchen_id
+    in: path
+    required: true
+    type: string
+  hub_id:
+    name: hub_id
+    in: path
+    required: true
+    type: string
+  user_id:
+    name: user_id
+    in: path
+    required: true
+    type: string
+  coupon_id:
+    name: coupon_id
+    in: path
+    required: true
+    type: string
+  operator_id:
+    name: operator_id
+    in: path
+    required: true
+    type: string
+  menu_id:
+    name: menu_id
+    in: path
+    required: true
+    type: string
+  key:
+    name: key
+    description: Key name
+    in: query
+    required: true
+    type: string
+  value:
+    name: value
+    description: Value
+    in: query
+    required: true
+    type: string
+  query:
+    name: query
+    description: 'Number - menu id search, String - menu name search.'
+    in: query
+    required: true
+    type: string

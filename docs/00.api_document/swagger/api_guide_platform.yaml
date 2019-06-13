@@ -1,0 +1,158 @@
+swagger: '2.0'
+info:
+  title: Aries Open API - Platform
+  description: >-
+    This document is for subscribing the functionalities and features of Aries
+    open API
+  version: '1.0'
+host: '139.196.123.42:8080'
+schemes:
+  - http
+basePath: /
+produces:
+  - application/json
+paths:
+  /platform/service/:
+    get:
+      tags:
+        - Platform
+      summary: Get a service operating status
+      description: Current operating status
+      responses:
+        '200':
+          description: Current operating status will be return
+          schema:
+            $ref: '#/definitions/operating_status'
+        '503':
+          description: 'Service is not running. Error code: 9990'
+          schema:
+            $ref: '#/definitions/maintenance_status'
+  /platform/token/verification/<os_name>/:
+    get:
+      tags:
+        - Platform
+      summary: '<android, ios>'
+      description: Return if token is valid or invalid
+      responses:
+        '200':
+          description: Get token verification info
+          schema:
+            $ref: '#/definitions/success_response'
+        '401':
+          description: 'UNAUTHORIZED ERROR: Token is expired or not found'
+  /platform/operators/sign/:
+    post:
+      tags:
+        - HubAdmin
+      description: For hub
+      parameters:
+        - name: account_information
+          in: body
+          required: true
+          schema:
+            required:
+              - account
+              - password
+            properties:
+              account:
+                type: string
+                example: chrysaor
+              password:
+                type: string
+                example: 1q2w3e
+      responses:
+        '200':
+          description: Login success
+          schema:
+            $ref: '#/definitions/admin_signin_success'
+        '503':
+          description: Maintain server
+          schema:
+            $ref: '#/definitions/admin_signin_maintain'
+definitions:
+  operating_status:
+    type: object
+    properties:
+      code:
+        type: integer
+        description: Http response code
+        example: 200
+      message:
+        type: string
+        description: Message from server
+        example: success
+      latest_version:
+        type: number
+        description: Current latest application version from os type
+        example: 1.1
+      force_update:
+        type: boolean
+        description: 'If application update is strong, true'
+        example: true
+  maintenance_status:
+    type: object
+    properties:
+      code:
+        type: integer
+        description: Http response code
+        example: 503
+      message:
+        type: string
+        description: 'Emergency '
+        example: Reason of maintenance
+      error_code:
+        type: integer
+        description: Error code
+        example: 9990
+  success_response:
+    type: object
+    properties:
+      code:
+        type: integer
+        description: Success http response
+        example: 200
+      message:
+        type: string
+        description: success
+        example: success
+  admin_signin_success:
+    type: object
+    properties:
+      code:
+        type: integer
+        description: Success http response
+        example: 200
+      message:
+        type: string
+        description: success
+        example: success
+      access_token:
+        type: string
+        description: Access token for our server
+        example: A1B2E7AAA070BFE1D3125C3C8C25FC81443C560ADB995B3A
+      server_time:
+        type: string
+        description: success
+        example: '2017-06-22 06:04:41.741082'
+  admin_signin_maintain:
+    type: object
+    properties:
+      code:
+        type: integer
+        description: Maintain http response code
+        example: 503
+      message:
+        type: string
+        description: Maintain comment
+        example: "Under the maintaining server.\r\n\r\nPM 08:00 ~ PM 12:00"
+  hub_signin_object:
+    type: object
+    properties:
+      account:
+        type: string
+        description: Account name
+        example: chrysaor
+      password:
+        type: string
+        description: Password
+        example: 1q2w3e

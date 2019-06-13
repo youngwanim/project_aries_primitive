@@ -1,0 +1,246 @@
+swagger: '2.0'
+info:
+  title: Aries Open API - UCC (Review)
+  description: >-
+    This document is for subscribing the functionalities and features of Aries
+    open API
+  version: '1.0'
+host: '139.196.123.42:8080'
+schemes:
+  - http
+basePath: /
+produces:
+  - application/json
+paths:
+  '/ucc/products/{product_id}/reviews/':
+    get:
+      tags:
+        - Review
+      summary: Read
+      description: Read review list in detail page
+      parameters:
+        - $ref: '#/parameters/open_id_optional'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/product_id'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/review_list_response'
+  /ucc/products/reviews/:
+    get:
+      tags:
+        - Review
+      summary: Read
+      description: Review list
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/limit'
+        - $ref: '#/parameters/query_product_id'
+        - $ref: '#/parameters/query_menu_id'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/review_response'
+    post:
+      tags:
+        - Review
+      summary: 'Create, Update'
+      description: Write/Update review call only this api
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - name: review
+          in: body
+          description: review request data
+          schema:
+            $ref: '#/definitions/review_post_request'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/review_post_response'
+    delete:
+      tags:
+        - Review
+      summary: Delete
+      description: Delete review
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - name: delete body
+          in: body
+          description: delete data body
+          schema:
+            $ref: '#/definitions/review_delete_request'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/success_response'
+definitions:
+  success_response:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: success
+  review_response:
+    type: object
+    properties:
+      review_detail:
+        $ref: '#/definitions/review_detail'
+      review_items:
+        type: array
+        items:
+          $ref: '#/definitions/review_item'
+  review_post_response:
+    properties:
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: success
+      review_detail:
+        $ref: '#/definitions/review_detail'
+  review_detail:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 10
+        description: 'if it does not have review, this value is -1'
+      product_id:
+        type: integer
+        example: 1
+      has_reviewed:
+        type: boolean
+        example: true
+      visible:
+        type: boolean
+        example: true
+      user_name:
+        type: string
+        example: hello
+      menu_rate:
+        type: integer
+        example: 0
+      special_feedback:
+        type: boolean
+        example: false
+      feedback_type:
+        type: integer
+        example: -1
+        description: 'if it does not have review, this value is -1'
+      comment:
+        type: string
+        example: This food was very awesome
+      editable:
+        type: boolean
+        example: true
+        description: 'If it is a review that I wrote, it is true'
+  review_item:
+    type: object
+    properties:
+      type:
+        type: integer
+        example: 0
+      name:
+        type: string
+        example: INSTRUCTION
+  review_post_request:
+    type: object
+    properties:
+      product_id:
+        type: integer
+        example: 1
+      user_name:
+        type: string
+        example: KKK
+      menu_rate:
+        type: number
+        example: 2
+      special_feedback:
+        type: integer
+        example: 2
+      comment:
+        type: string
+        example: It is very good
+  review_delete_request:
+    properties:
+      product_id:
+        type: integer
+        example: 1
+  review_list_response:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: success
+      total_count:
+        type: integer
+        example: 14
+      customer_reviews:
+        type: array
+        items:
+          $ref: '#/definitions/review_detail'
+parameters:
+  open_id:
+    name: open-id
+    in: header
+    description: An open-id
+    required: true
+    type: string
+  open_id_optional:
+    name: open-id
+    in: header
+    description: An open-id
+    required: false
+    type: string
+  access_token:
+    name: Authorization
+    in: header
+    description: bearer access_token
+    required: true
+    type: string
+  page:
+    name: page
+    in: query
+    description: The page we want to see
+    required: true
+    type: integer
+  limit:
+    name: limit
+    in: query
+    description: The limitation count
+    required: true
+    type: integer
+  query_product_id:
+    name: product_id
+    in: query
+    description: product id
+    required: true
+    type: integer
+  query_menu_id:
+    name: menu_id
+    in: query
+    description: menu id
+    required: true
+    type: string
+  product_id:
+    name: product_id
+    in: path
+    description: product id
+    required: true
+    type: integer

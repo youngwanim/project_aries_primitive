@@ -1,0 +1,145 @@
+swagger: '2.0'
+info:
+  title: Aries Open API - Purchases
+  description: >-
+    This document is for subscribing the functionalities and features of Aries
+    open API
+  version: '1.0'
+host: '139.196.123.42:8080'
+schemes:
+  - http
+basePath: /
+produces:
+  - application/json
+paths:
+  /purchases/promotions:
+    get:
+      tags:
+        - Purchases
+      summary: Read
+      description: Read promotion list
+      parameters:
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/limit'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/promotion_list_response'
+  /purchases/coupon/issue:
+    post:
+      tags:
+        - Coupon
+      summary: Post
+      description: Create event coupon
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - name: serial_number
+          in: body
+          description: serial number string
+          schema:
+            $ref: '#/definitions/event_coupon_post'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/success_response'
+        '500':
+          description: '3101:시리얼넘버 불일치 3102:이미 등록된 번호 3103:발급 오류 3104:발급기한 만료'
+definitions:
+  success_response:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: success
+  promotion_detail:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 2
+      status:
+        type: integer
+        example: 0
+        description: '0 - on Going, 1 - stop, 2 - expired'
+      type:
+        type: string
+        example: 0
+      main_image:
+        type: string
+        example: promo_001.png
+      image_detail:
+        type: string
+        example: promo_002.png
+      main_title:
+        type: string
+        example: Welcome promotion
+      content:
+        type: string
+        example: Coupon promotion for user
+      start_date:
+        type: string
+        example: '2017-01-02'
+      end_date:
+        type: string
+        example: '2017-01-10'
+      promotion_url:
+        type: string
+        example: 'http://m.viastelle.com/promotion'
+  promotion_list_response:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: success
+      total_count:
+        type: integer
+        example: 2
+      promotions:
+        items:
+          $ref: '#/definitions/promotion_detail'
+  event_coupon_post:
+    type: object
+    properties:
+      serial_number:
+        type: string
+        example: XG2K92W
+parameters:
+  open_id:
+    name: open-id
+    in: header
+    description: An open-id
+    required: true
+    type: string
+  access_token:
+    name: Authorization
+    in: header
+    description: bearer access_token
+    required: true
+    type: string
+  page:
+    name: page
+    in: query
+    description: The page we want to see
+    required: true
+    type: integer
+  limit:
+    name: limit
+    in: query
+    description: The limitation count
+    required: true
+    type: integer
+  promotion_id:
+    name: promotion_id
+    in: path
+    description: Promotion id
+    required: true
+    type: string

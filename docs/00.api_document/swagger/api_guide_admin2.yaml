@@ -1,0 +1,493 @@
+swagger: '2.0'
+info:
+  title: Aries Open API - Admin promotion/product plan
+  description: >-
+    This document is for subscribing the functionalities and features of Aries
+    open API
+  version: '1.0'
+host: '139.196.123.42:8080'
+schemes:
+  - http
+basePath: /
+produces:
+  - application/json
+paths:
+  /purchases/admin/promotions:
+    get:
+      tags:
+        - Purchases
+      summary: Read
+      description: Read promotion list
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/limit'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/promotion_list_response'
+    post:
+      tags:
+        - Purchases
+      summary: Create
+      description: Create promotion
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - name: promotion
+          in: body
+          description: Promotion model
+          schema:
+            $ref: '#/definitions/promotion_post_request'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/success_response'
+  '/purchases/admin/promotion/{promotion_id}/':
+    get:
+      tags:
+        - Purchases
+      summary: Read
+      description: Read promotion detail
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/promotion_id'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/promotion_detail_response'
+    put:
+      tags:
+        - Purchases
+      summary: Update
+      description: Update promotion detail
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/promotion_id'
+        - name: promotion
+          in: body
+          description: Promotion data
+          schema:
+            $ref: '#/definitions/promotion_put_request'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/success_response'
+    delete:
+      tags:
+        - Purchases
+      summary: Delete
+      description: Delete promotion detail
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/promotion_id'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/success_response'
+  /products/admin/plan:
+    get:
+      tags:
+        - ProductPlan
+      summary: Read
+      description: Read product plan
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/kitchen_id'
+        - $ref: '#/parameters/start_date'
+        - $ref: '#/parameters/end_date'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/product_plan_list_response'
+    post:
+      tags:
+        - ProductPlan
+      summary: Create
+      description: Create product plan
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - name: product_plan
+          in: body
+          description: Product plan model
+          schema:
+            $ref: '#/definitions/product_plan_post'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/success_response'
+  '/products/admin/plan/{plan_id}':
+    get:
+      tags:
+        - ProductPlan
+      summary: Read
+      description: Read product detail
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/plan_id'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/product_plan_detail'
+    put:
+      tags:
+        - ProductPlan
+      summary: Update
+      description: Update product plan
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/plan_id'
+        - name: product_plan
+          in: body
+          description: Product plan model
+          schema:
+            $ref: '#/definitions/product_plan_post'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/success_response'
+    delete:
+      tags:
+        - ProductPlan
+      summary: Delete
+      description: Delete product plan
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/plan_id'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/success_response'
+definitions:
+  success_response:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: success
+  promotion_detail_request:
+    type: object
+    properties:
+      status:
+        type: integer
+        example: 0
+        description: '0 - On going, 1 - Stop, 2 - Expired'
+      main_image:
+        type: string
+        example: promo1.png
+      image_detail:
+        type: string
+        example: promo1_sub.png
+      main_title:
+        type: string
+        example: Welcome promotion
+      content:
+        type: string
+        example: Coupon promotion for user
+      start_date:
+        type: string
+        example: '2017-07-10'
+      end_date:
+        type: string
+        example: '2017-07-20'
+      promotion_url:
+        type: string
+        example: 'http://m.viastelle.com'
+  promotion_detail:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 2
+      status:
+        type: integer
+        example: 0
+        description: '0 - On going, 1 - Stop, 2 - Expired'
+      main_image:
+        type: string
+        example: promo1.png
+      image_detail:
+        type: string
+        example: promo1_sub.png
+      main_title:
+        type: string
+        example: Welcome promotion
+      content:
+        type: string
+        example: Coupon promotion for user
+      start_date:
+        type: string
+        example: '2017-07-10'
+      end_date:
+        type: string
+        example: '2017-07-20'
+      promotion_url:
+        type: string
+        example: 'http://m.viastelle.com'
+  promotion_detail_response:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: success
+      promotion_en:
+        $ref: '#/definitions/promotion_detail'
+      promotion_cn:
+        $ref: '#/definitions/promotion_detail'
+  promotion_list_response:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: success
+      promotion_en:
+        items:
+          $ref: '#/definitions/promotion_detail'
+      promotion_cn:
+        items:
+          $ref: '#/definitions/promotion_detail'
+  promotion_post_request:
+    type: object
+    properties:
+      promotion_en:
+        $ref: '#/definitions/promotion_detail_request'
+      promotion_cn:
+        $ref: '#/definitions/promotion_detail_request'
+  promotion_put_request:
+    type: object
+    properties:
+      promotion_en:
+        $ref: '#/definitions/promotion_detail'
+      promotion_cn:
+        $ref: '#/definitions/promotion_detail'
+  product_plans:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 7
+      start_date:
+        type: string
+        example: '2017-07-01'
+      end_date:
+        type: string
+        example: '2017-07-22'
+      menu_plan:
+        items:
+          $ref: '#/definitions/menu_plan_detail'
+  menu_plan_detail:
+    type: object
+    properties:
+      list_index:
+        type: integer
+        example: 0
+      menu_id:
+        type: integer
+        example: 8
+      quantity:
+        type: integer
+        example: 80
+      price_discount:
+        type: number
+        example: 50
+      price_discount_event:
+        type: boolean
+        example: false
+  product_plan_post:
+    type: object
+    properties:
+      start_date:
+        type: string
+        example: '2017-07-22'
+      end_date:
+        type: string
+        example: '2017-07-30'
+      kitchen_id:
+        type: integer
+        example: 2
+      menu_plan:
+        items:
+          $ref: '#/definitions/menu_plan_detail'
+  product_list_object:
+    type: object
+    properties:
+      hub:
+        type: integer
+        example: 0
+      menu:
+        type: integer
+        example: 8
+      list_index:
+        type: integer
+        example: 0
+      type:
+        type: integer
+        example: 2
+      price:
+        type: number
+        example: 50
+      price_discount:
+        type: number
+        example: 40
+      price_discount_event:
+        type: boolean
+        example: false
+      price_unit:
+        type: integer
+        example: 0
+      status:
+        type: integer
+        example: 0
+      start_date:
+        type: string
+        example: '2017-07-22'
+      end_date:
+        type: string
+        example: '2017-07-30'
+      stock:
+        type: integer
+        example: 0
+      sold:
+        type: integer
+        example: 0
+  kitchen:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 2
+      name:
+        type: string
+        example: Seoul kitchen
+      type:
+        type: integer
+        example: 1
+  product_plan:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 2
+      start_date:
+        type: string
+        example: '2017-07-01'
+      end_date:
+        type: string
+        example: '2017-07-31'
+      menu_plan:
+        items:
+          $ref: '#/definitions/menu_plan_detail'
+      product_list:
+        items:
+          $ref: '#/definitions/product_list_object'
+      has_released:
+        type: boolean
+        example: false
+      kitchen:
+        $ref: '#/definitions/kitchen'
+  product_plan_detail:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: success
+      product_plan:
+        $ref: '#/definitions/product_plan'
+  product_plan_list_response:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: success
+      product_plans:
+        items:
+          $ref: '#/definitions/product_plan'
+parameters:
+  open_id:
+    name: open-id
+    in: header
+    description: An open-id
+    required: true
+    type: string
+  access_token:
+    name: Authorization
+    in: header
+    description: bearer access_token
+    required: true
+    type: string
+  page:
+    name: page
+    in: query
+    description: The page we want to see
+    required: true
+    type: integer
+  limit:
+    name: limit
+    in: query
+    description: The limitation count
+    required: true
+    type: integer
+  promotion_id:
+    name: promotion_id
+    in: path
+    description: Promotion id
+    required: true
+    type: string
+  plan_id:
+    name: plan_id
+    in: path
+    description: Plan id
+    required: true
+    type: string
+  kitchen_id:
+    name: kitchen_id
+    in: query
+    description: Kitchen id
+    required: true
+    type: integer
+  start_date:
+    name: start_date
+    in: query
+    description: Start date
+    required: true
+    type: string
+  end_date:
+    name: end_date
+    in: query
+    description: End date
+    required: true
+    type: string

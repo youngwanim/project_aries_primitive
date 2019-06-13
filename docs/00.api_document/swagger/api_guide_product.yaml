@@ -1,0 +1,243 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: Aries Open API
+  description: This document is for subscribing the functionalities and features of Aries open API
+  version: "1.0.0"
+# the domain of the service
+host: viastelle.com
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /product:
+    get:
+      summary: Product Types
+      description: |
+        ''main menu에 표시될 정보를 array 형태로 리턴한다. main menu에 표시될 컨텐츠 각 구성요소는 array내부에서 각각의 element로 전달되고, 각 element는 index, type, detail 로 구성된다. 이때, detail 정보는 type 에 따라 다른 구성요소를 포함한다.
+      tags:
+        - Product
+      responses:
+        200:/Users/keanu/workspace/python/aries_project/docs/00.api_document/swagger/API_GUIDE_products.json
+          description: An array of products
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ProductList'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /product/{product_id}:
+    get:
+      summary: Product Types
+      description: |
+        ''main menu에서 선택된 product의 id 값을 통해 해당 메뉴의 세부적인 내용을 리턴한다. product_id는 GET /product 의 결과로 얻은 array의 element type이 'food'인 경우 해당 element에 명시된 [product][product_id] 값에 해당한다.  
+      parameters:
+        - name: product_id
+          in: path
+          description: product id
+          required: true
+          type: number
+          format: int32
+      tags:
+        - Product
+      responses:
+        200:
+          description: Overall information of product for detailed menu display
+          schema:
+            $ref: '#/definitions/Product'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+
+
+
+definitions:
+
+
+
+  result_array:
+    type: object
+    properties:
+      index:
+        type: number
+        description: index of corresponding element
+      type:
+        type: string
+        description: type of corresponsding element. type can be 'food', 'banner' or 'label'
+      menu:
+        type: object
+        description: including menu information. If the value of 'type' key is not 'food', most informations of this object can be ignorable
+        properties:
+          menu_id:
+            type: number
+            description: number of menu id
+          menu_name:
+            type: string
+            description: name of the menu.
+          menu_type:
+            type: number
+            description: index number of menu type. pairing between the number and actual menu type is, 0-course, 1-main dish, 2-side dish, 3-dessert, 4-drink. Refer the docs of GUI guide
+          menu_image_main:
+            type: string
+            description: URL of the main image content for menu
+          menu_image_thumbnail:
+            type: string
+            description: URL of the thumbnail image content for menu
+      product:
+        type: object
+        description: including product information. If the value of 'type' key is not 'food', most informations of this object can be ignorable
+        properties:
+          product_id:
+            type: number
+            description: product instance의 id
+          product_price:
+            type: number
+            description: 소수점이 포함된 decimal number로 해당 prodcut의 가격정보.
+          product_price_unit:
+            type: number
+            description: product price 에 반영될 화폐 단위로, 정수값을 가진다. 해당 정수값에 대해 main menu와 detail menu에서 'RMB' 혹은 'USD' 로 변환되어 표시되어야 한다. ( 0-> 'RMB', 1->'USD')
+          product_available:
+            type: boolean
+            description: 해당 product가 현재 구매 가능한지 표시한다. true=판매가능 false=재고없음
+      restaurant:
+        type: object
+        description: including restaurant information. If the value of 'type' key is not 'food', most informations of this object can be ignorable
+        properties:
+          restaurant_id:
+            type: number
+            description: number of restaurant id
+          restaurant_name:
+            type: string
+            description: name of the restaurant
+          restaurant_award_type:
+            type: number
+            description: 해당 레스토랑이 수상한 award type. 0-Michelin, 1-The World 50 Best Restaurant, 2-ZAGAT(저갯 서베이), 3-JBF(James Beard Foundation) award, 4-AAA Five Diamond Award
+          restaurant_award_grade:
+            type: number
+            description: 해당 레스토랑이 수상한 award type에 대해 적용되는 grade. restaurant_award_type=0, restaurant_award_grade=3 인 경우 해당 레스토랑은 미슐랭 3 star
+      
+  ProductList:
+    type: object
+    properties:
+      result_code:
+        type: number
+        description: result code number of API call
+      result_message:
+        type: string
+        description: detailed description on the result code
+      result:
+        type: array
+        description: array of all informations on menu, banner and label.
+        items:
+          $ref: '#/definitions/result_array'
+
+  Product:
+    type: object
+    properties:
+      menu:
+        type: object
+        description: including menu information. If the value of 'type' key is not 'food', most informations of this object can be ignorable
+        properties:
+          menu_id:
+            type: number
+            description: number of menu id
+          menu_name:
+            type: string
+            description: name of the menu.
+          menu_type:
+            type: number
+            description: index number of menu type. pairing between the number and actual menu type is, 0-course, 1-main dish, 2-side dish, 3-dessert, 4-drink. Refer the docs of GUI guide
+          menu_image_main:
+            type: string
+            description: URL of the main image content for menu
+          menu_image_thumbnail:
+            type: string
+            description: URL of the thumbnail image content for menu
+      menu_info:
+        type: object
+        description: 상세 메뉴에 표시되는 정보를 포함한다. 
+        properties:
+          menu_desc:
+            type: array
+            description: 메뉴에 대한 상세한 기술로, array 각 element는 전체 텍스트의 각 라인을 포함한다. ex.) ["This menu", "is fantastic, and", "expensive"]
+            items:
+              type: string
+          menu_image_package: 
+            type: string
+            description: image location information
+          menu_prep_tips: 
+            type: array
+            description: 메뉴 조리에 사용되는 도구를 포함한다. "microwave", "oven" 두 종류가 있고 각 text에 대응되는 아이콘이 상세메뉴의 prep 영역에 표시되어야 한다. ex.) ["microwave", "oven"]
+            items:
+              type: string
+          menu_prep_tips_desc:
+            type: array
+            description: 해당 메뉴의 조리에 사용되는 순서와 방법을 기술한다. 각  element는 string 타입으로 구성된다. ex.)["1. cut off the plastic package", "2. put the braised meat into  microwave", "3. Place the meat onto a plate"]
+            items:
+              type: string
+          menu_package_list:
+            type: array
+            description: 해당 메뉴의 패키지를 구성하는 물품을 기술한다. ex.)["duck", "sliced onion", "soy sause"]
+            items:
+              type: string
+          menu_ingredient:
+            type: array
+            description: '메뉴 조리시에 사용된 식재료에 대한 정보를 기술한다. 각 element의 key는 "icon", "name", "quantity" 로 구성되고 복수의 element로 구성된다. 각 key 에 대한 value type은 integer, string, string이다. ex.)[{"icon":1, "name":"shrimp", "quantity":"50g"}, {"icon": 2,"name": "soy sauce","quantity": "1g"},{"icon": 3,"name": "mushroom","quantity": "5g"}, {"icon": 4,"name": "lettuce","quantity": "5g"}, {"icon": 5,"name":"red pepper","quantity": "7g"}, {"icon": 6,"name":"laver","quantity": "3g"}]'
+            items:
+              type: object
+          menu_nutrition:
+            type: string
+            description: 14개의 숫자+단위 쌍이 ',' 로 구분된 string 데이터로 각각 영양성분의 함량을 의미한다. ex)"450Kcal,19g,10g,43g,19g,0g,6g,9g,210mg,720mg,22g,10g,12g,19g"
+            
+      product:
+        type: object
+        description: including product information. If the value of 'type' key is not 'food', most informations of this object can be ignorable
+        properties:
+          product_id:
+            type: number
+            description: product instance의 id
+          product_price:
+            type: number
+            description: 소수점이 포함된 decimal number로 해당 prodcut의 가격정보.
+          product_price_unit:
+            type: number
+            description: product price 에 반영될 화폐 단위로, 정수값을 가진다. 해당 정수값에 대해 main menu와 detail menu에서 'RMB' 혹은 'USD' 로 변환되어 표시되어야 한다. ( 0-> 'RMB', 1->'USD')
+          product_available:
+            type: boolean
+            description: 해당 product가 현재 구매 가능한지 표시한다. true=판매가능 false=재고없음
+      restaurant:
+        type: object
+        description: including restaurant information. If the value of 'type' key is not 'food', most informations of this object can be ignorable
+        properties:
+          restaurant_id:
+            type: number
+            description: number of restaurant id
+          restaurant_name:
+            type: string
+            description: name of the restaurant
+          restaurant_award_type:
+            type: number
+            description: 해당 레스토랑이 수상한 award type. 0-Michelin, 1-The World 50 Best Restaurant, 2-ZAGAT(저갯 서베이), 3-JBF(James Beard Foundation) award, 4-AAA Five Diamond Award
+          restaurant_award_grade:
+            type: number
+            description: 해당 레스토랑이 수상한 award type에 대해 적용되는 grade. restaurant_award_type=0, restaurant_award_grade=3 인 경우 해당 레스토랑은 미슐랭 3 star      
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string

@@ -1,0 +1,212 @@
+swagger: '2.0'
+info:
+  title: Aries Open API - User
+  description: >-
+    This document is for subscribing the functionalities and features of Aries
+    open API
+  version: '1.0'
+host: '139.196.123.42:8080'
+schemes:
+  - http
+basePath: /
+produces:
+  - application/json
+paths:
+  '/users/v2/address/{address_id}/':
+    get:
+      tags:
+        - Address
+      summary: Read
+      description: Address detail read
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/address_id'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/address_response'
+  /users/v2/address/:
+    post:
+      tags:
+        - Address
+      summary: Create
+      description: Register new address
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - name: address
+          in: body
+          description: address request data
+          schema:
+            $ref: '#/definitions/address_detail'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/address_response'
+  /users/v2/addresses/:
+    get:
+      tags:
+        - Address
+      summary: Read
+      description: Read address list
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/address_list_response'
+  '/users/v2/addresses/{address_id}/':
+    put:
+      tags:
+        - Address
+      summary: Update (Select address id)
+      description: Select address API
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/address_id'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/success_response'
+    delete:
+      tags:
+        - Address
+      summary: Delete
+      description: Delete regersted address
+      parameters:
+        - $ref: '#/parameters/open_id'
+        - $ref: '#/parameters/access_token'
+        - $ref: '#/parameters/address_id'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/success_response'
+definitions:
+  success_response:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: success
+  address_detail:
+    properties:
+      name:
+        type: string
+        example: Jing-an-gu
+      delivery_area:
+        type: boolean
+        example: true
+      selected_address:
+        type: boolean
+        example: true
+      hub_id:
+        type: integer
+        example: 1
+      city:
+        type: string
+        example: Shanghai
+      city_code:
+        type: string
+        example: 28
+      ad_code:
+        type: string
+        example: strt
+      province:
+        type: string
+        example: Shanghai
+      format_address:
+        type: string
+        example: jing an gu 11st 56
+      district:
+        type: string
+        example: 11st
+      township:
+        type: string
+        example: township detail
+      towncode:
+        type: string
+        example: towncode
+      building:
+        type: string
+        example: AB building
+      neighborhood:
+        type: string
+        example: neighborhood
+      latitude:
+        type: number
+        example: 1.3242561
+      longitude:
+        type: number
+        example: 0.1356628
+  address_list_response:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: success
+      user_addresses:
+        type: array
+        items:
+          $ref: '#/definitions/address_detail'
+  address_response:
+    type: object
+    properties:
+      code:
+        type: integer
+        example: 200
+      message:
+        type: string
+        example: success
+      user_addresses:
+        $ref: '#/definitions/address_detail'
+parameters:
+  open_id:
+    name: open-id
+    in: header
+    description: An open-id
+    required: true
+    type: string
+  open_id_optional:
+    name: open-id
+    in: header
+    description: An open-id
+    required: false
+    type: string
+  access_token:
+    name: Authorization
+    in: header
+    description: bearer access_token
+    required: true
+    type: string
+  page:
+    name: page
+    in: query
+    description: The page we want to see
+    required: true
+    type: integer
+  limit:
+    name: limit
+    in: query
+    description: The limitation count
+    required: true
+    type: integer
+  address_id:
+    name: address_id
+    in: path
+    description: address id
+    required: true
+    type: integer

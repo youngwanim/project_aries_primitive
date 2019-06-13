@@ -1,0 +1,15 @@
+[Unit]
+Description=aries api gateway gunicorn daemon
+After=network.target
+
+[Service]
+User=nexttf
+Group=
+WorkingDirectory=/home/nexttf/workspace/project_aries
+ExecStart=/home/nexttf/workspace/venv/bin/gunicorn \
+	--workers 5 \
+    --bind 0.0.0.0:8080 \
+	aries.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
